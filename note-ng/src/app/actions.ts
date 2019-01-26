@@ -1,0 +1,3 @@
+export const POPULATE_NOTE_LISTS = 'POPULATE_NOTE_LISTS';
+export const ADD_NOTE = 'ADD_NOTE';
+export const ARCHIVE_NOTE = 'ARCHIVE_NOTE';
