@@ -1,8 +1,9 @@
 CREATE TABLE notes (
-  note_id int not null auto_increment,
+  id int not null auto_increment,
   content varchar(250) not null,
-  archived bit not null,
-  primary key (note_id)
+  archived bit(1) not null DEFAULT b'0',
+  created timestamp DEFAULT NOW(),
+  primary key (id)
 );
 
-insert into notes (content, archived) values ('My note content', 0);
+insert into notes (content) values ('My note content');

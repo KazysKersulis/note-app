@@ -1,15 +1,18 @@
+import org.jooq.codegen.*
+
 buildscript {
     ext {
         springBootVersion = '2.1.2.RELEASE'
     }
     repositories {
+        mavenLocal()
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.jooq:jooq-codegen:3.5.4")
-        classpath 'org.jooq:jooq-meta-extensions:3.11.0'
-        classpath("mysql:mysql-connector-java:5.1.37")
+        classpath"org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath"org.jooq:jooq-codegen:3.11.9"
+        classpath "org.jooq:jooq-meta-extensions:3.11.9"
+        classpath group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
     }
 }
 
@@ -27,6 +30,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -34,9 +38,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.flywaydb:flyway-core'
-    compile 'org.jooq:jooq:3.5.4'
+    compile 'org.jooq:jooq:3.11.9'
     compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile 'mysql:mysql-connector-java'
+    runtime 'mysql:mysql-connector-java:8.0.11'
     compileOnly 'org.projectlombok:lombok:1.18.4'
     compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.5'
     compile group: 'org.modelmapper.extensions', name: 'modelmapper-jooq', version: '2.3.2'
@@ -45,7 +49,7 @@ dependencies {
 }
 
 flyway {
-    url = 'jdbc:mysql://localhost:3306'
+    url = 'jdbc:mysql://localhost:3306?autoReconnect=true&useSSL=false'
     user = 'root'
     password = 'root'
     schemas = ['notes']
@@ -53,16 +57,18 @@ flyway {
 
 def writer = new StringWriter()
 def xml = new groovy.xml.MarkupBuilder(writer)
-        .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.5.0.xsd') {
+        .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd') {
     jdbc() {
-        driver('com.mysql.jdbc.Driver')
-        url('jdbc:mysql://localhost:3306/notes')
+        driver('com.mysql.cj.jdbc.Driver')
+        url('jdbc:mysql://localhost:3306/notes?autoReconnect=true&useSSL=false')
         user('root')
-        username('root')
         password('root')
     }
     generator() {
         database() {
+//            name('org.jooq.util.mysql.MySQLDatabase')
+            inputSchema('notes')
+            includes('.*')
         }
         generate([:]) {
             pojos true
@@ -75,4 +81,4 @@ def xml = new groovy.xml.MarkupBuilder(writer)
     }
 }
 
-org.jooq.util.GenerationTool.generate(writer.toString())
+GenerationTool.generate(writer.toString())
