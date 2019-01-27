@@ -14,7 +14,11 @@ export const INITIAL_STATE: AppState = {
 export function rootReducer(state, action) {
     switch(action.type) {
         case POPULATE_NOTE_LISTS: {
-            
+            console.log("aser");
+            return Object.assign({}, state, {
+                notes: action.notes.filter(n => n.archived == false),
+                archivedNotes: state.notes.filter(n => n.archived == true)
+            })
         }
         case ADD_NOTE: {
             action.note.id = state.notes.length + 1;

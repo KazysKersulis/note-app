@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Create a new note!</h1>
+<form (ngSubmit)="onSubmit()" #noteForm="ngForm">
+  <div class="form-row">
+    <div mat-dialog-content>
+      <input type="text" 
+      class="form-control" 
+      placeholder="New Note" 
+      id="content" 
+      [(ngModel)]="model.content"
+      name="content" 
+      #content="ngModel">
+    </div>
+  </div>
+  <button mat-button type="submit" [mat-dialog-close]="model" cdkFocusInitial>Ok</button>
+</form>

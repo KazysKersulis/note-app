@@ -1,3 +1,20 @@
-<p>
-  note-list works!
-</p>
+<h6>Notes list:</h6>
+<div *ngIf="(notes | async)?.length">
+  <table class="table">
+      <thead class="thead-inverse">
+          <tr>
+            <th>Todo Content</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let n of notes | async">
+              <td><span>{{ n.content }}</span></td>
+              <td><span>{{ n.created | date:'mediumDate'}}</span></td>
+              <td><span><button class="btn-primary">Delete</button></span></td>
+            </tr>
+          </tbody>
+  </table>
+  <button mat-raised-button (click)="openDialog()">Create new Note</button>
+</div>

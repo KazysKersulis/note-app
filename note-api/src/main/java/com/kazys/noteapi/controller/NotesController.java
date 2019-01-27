@@ -12,6 +12,7 @@ import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1")
 public class NotesController {
 

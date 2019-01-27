@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateNoteComponent } from './create-note.component';
+import { CreateNoteDialogComponent } from './create-note-dialog.component';
 
-describe('CreateNoteComponent', () => {
-  let component: CreateNoteComponent;
-  let fixture: ComponentFixture<CreateNoteComponent>;
+describe('CreateNoteDialogComponent', () => {
+  let component: CreateNoteDialogComponent;
+  let fixture: ComponentFixture<CreateNoteDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateNoteComponent ]
+      declarations: [ CreateNoteDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateNoteComponent);
+    fixture = TestBed.createComponent(CreateNoteDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
